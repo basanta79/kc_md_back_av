@@ -25,6 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * Setup de i18n
+ */
+const i18n = require('./lib/i18nSetup')();
+app.use(i18n.init);
+
 // Global Template variables
 app.locals.title = 'NodePop';
 
