@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Anuncio = mongoose.model('Anuncio');
+const jwt = require('jsonwebtoken');
+const Usuario = mongoose.model('Usuario');
 
 router.get('/', (req, res, next) => {
 
@@ -50,5 +52,38 @@ router.get('/', (req, res, next) => {
 router.get('/tags', function (req, res) {
   res.json({ ok: true, allowedTags: Anuncio.allowedTags() });
 });
+
+router.post('/login', async function (req,res) {
+  try {
+    // Recogemos los datos del body
+    const email = req.body.email;
+    const password = req.body.password; 
+
+    // Obtenemos los usuarios de la base de datos.
+    const usuario = await Usuario.findOne({ email: email });
+    console.log(usuario);
+    
+    // Comparamos el password que nos envian
+    if (!usuario){
+      res.json({
+        result: false,
+      })
+    }else{
+      res.json({
+        result: true,
+        user: usuario
+      })
+    }
+     
+    // Si no es correcto devolver un error
+
+    // Si es correcto devolvemos un webtoken
+  } catch (error) {
+    console.log( error);
+    next (error);
+    return;
+  }
+
+})
 
 module.exports = router;

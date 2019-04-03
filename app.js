@@ -12,6 +12,7 @@ const db = require('./lib/connectMongoose');
 
 // Cargamos las definiciones de todos nuestros modelos
 require('./models/Anuncio');
+require('./models/Usuario');
 
 const app = express();
 
@@ -38,8 +39,11 @@ app.locals.title = 'NodePop';
 app.use('/', require('./routes/index'));
 app.use('/anuncios', require('./routes/anuncios'));
 
-// API v1
+/**
+ * API ROUTES
+ */
 app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
+app.use('/apiv1/login', require('./routes/apiv1/login'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
