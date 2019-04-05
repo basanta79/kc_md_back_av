@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 
 /* jshint ignore:start */
 const db = require('./lib/connectMongoose');
+const jwtAuth = require('./lib/jwtAuth');
 /* jshint ignore:end */
 
 // Cargamos las definiciones de todos nuestros modelos
@@ -42,7 +43,7 @@ app.use('/anuncios', require('./routes/anuncios'));
 /**
  * API ROUTES
  */
-app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
+app.use('/apiv1/anuncios',jwtAuth(), require('./routes/apiv1/anuncios'));
 app.use('/apiv1/login', require('./routes/apiv1/login'));
 
 // catch 404 and forward to error handler
