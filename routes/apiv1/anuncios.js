@@ -6,6 +6,11 @@ const mongoose = require('mongoose');
 const Anuncio = mongoose.model('Anuncio');
 const jwt = require('jsonwebtoken');
 const Usuario = mongoose.model('Usuario');
+const multer  = require('multer')
+const upload = multer({ dest: 'img/' })
+
+const jimp = require('jimp');
+
 
 router.get('/', (req, res, next) => {
 
@@ -53,37 +58,35 @@ router.get('/tags', function (req, res) {
   res.json({ ok: true, allowedTags: Anuncio.allowedTags() });
 });
 
-router.post('/login', async function (req,res) {
-  try {
-    // Recogemos los datos del body
-    const email = req.body.email;
-    const password = req.body.password; 
-
-    // Obtenemos los usuarios de la base de datos.
-    const usuario = await Usuario.findOne({ email: email });
-    console.log(usuario);
-    
-    // Comparamos el password que nos envian
-    if (!usuario){
-      res.json({
-        result: false,
-      })
-    }else{
-      res.json({
-        result: true,
-        user: usuario
-      })
+router.post('/', async function (req,res,next) {
+  try{
+    const obj = {
+      nombre: req.body.name,
+      venta: req.body.venta,
+      precio: req.body.precio,
+      tags: req.body.tags,
+      foto: req.file.filename
     }
-     
-    // Si no es correcto devolver un error
+    // const anuncio = new Anuncio(obj);
+    // const anuncioGuardado = await anuncio.save();
+    // res.json(anuncioGuardado);
 
-    // Si es correcto devolvemos un webtoken
-  } catch (error) {
-    console.log( error);
-    next (error);
-    return;
+    console.log(req.file);
+    const image = await jimp.read(req.file.path);
+    //image.clone();
+    image.resize(100, jimp.AUTO);
+    image.resize(jimp.AUTO, 100);
+    image.write(req.file.destination + 'thumbnail-' + req.file.filename)
+
+    res.json(obj);
+    
+  } catch (err) {
+    return next(err);
   }
 
+
+
 })
+
 
 module.exports = router;

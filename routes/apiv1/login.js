@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const Usuario = mongoose.model('Usuario');
 const bcrypt = require('bcrypt');
 
+
 require('dotenv').config();
 
 router.post('/', async (req, res, next) => {

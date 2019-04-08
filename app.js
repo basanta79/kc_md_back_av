@@ -5,6 +5,22 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const multerConfig = require('./multer_config')
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'img/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+const upload = multer({ 
+  storage: multerConfig,
+});
+
 
 /* jshint ignore:start */
 const db = require('./lib/connectMongoose');
@@ -43,7 +59,8 @@ app.use('/anuncios', require('./routes/anuncios'));
 /**
  * API ROUTES
  */
-app.use('/apiv1/anuncios',jwtAuth(), require('./routes/apiv1/anuncios'));
+//app.use('/apiv1/anuncios',jwtAuth(), require('./routes/apiv1/anuncios'));
+app.use('/apiv1/anuncios',upload.single('avatar'), jwtAuth(), require('./routes/apiv1/anuncios'));
 app.use('/apiv1/login', require('./routes/apiv1/login'));
 
 // catch 404 and forward to error handler
