@@ -8,7 +8,8 @@
     "startmongo": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongod.exe --dbpath C:/Users/basanta79/Documents/MongoData/db",
     "startmongoshell": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongo.exe",
     "hints": "jshint . && ./node_modules/.bin/jscs . || true",
-    "installDB": "node install_db.js"
+    "installDB": "node install_db.js",
+    "startThumbnailCreator": "node thumbnailCreator.js"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -26,6 +27,7 @@
     "mongoose": "^5.4.20",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
+    "pm2": "^3.5.0",
     "serve-favicon": "^2.5.0",
     "validator": "^4.0.6"
   },

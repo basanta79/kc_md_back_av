@@ -8,8 +8,11 @@ const jwt = require('jsonwebtoken');
 const Usuario = mongoose.model('Usuario');
 const multer  = require('multer')
 const upload = multer({ dest: 'img/' })
+const cote = require('cote');
 
 const jimp = require('jimp');
+
+const defaultthumbnail = '.\public\images\anuncios\thumbnail1554702129938-piruleta.jpg';
 
 
 router.get('/', (req, res, next) => {
@@ -65,18 +68,40 @@ router.post('/', async function (req,res,next) {
       venta: req.body.venta,
       precio: req.body.precio,
       tags: req.body.tags,
-      foto: req.file.filename
+      foto: req.file.filename,
+      thumbnail: "",
     }
+    const requester = new cote.Requester({ name: 'thumbnailCreation'});
+
     // const anuncio = new Anuncio(obj);
     // const anuncioGuardado = await anuncio.save();
     // res.json(anuncioGuardado);
 
+    requester.send({
+      type: 'convert',
+      origin: req.file.filename,
+      path: req.file.path,
+      target: req.file.destination,
+    }, async(response) =>{
+      if (response.result){
+        console.log('respuesta----------:', response.thumbnailName);
+        obj.thumbnail = response.thumbnailName;
+
+        const anuncio = new Anuncio(obj);
+        const anuncioGuardado = await anuncio.save();
+        console.log(anuncioGuardado);
+      }else{
+        console.log(response.thumbnailName);
+        obj.thumbnail = defaultthumbnail;
+      }
+    });
+
     console.log(req.file);
-    const image = await jimp.read(req.file.path);
-    //image.clone();
-    image.resize(100, jimp.AUTO);
-    image.resize(jimp.AUTO, 100);
-    image.write(req.file.destination + 'thumbnail-' + req.file.filename)
+    // const image = await jimp.read(req.file.path);
+    // image.clone();
+    // image.resize(100, jimp.AUTO);
+    // image.resize(jimp.AUTO, 100);
+    // image.write(req.file.destination + 'thumbnail-' + req.file.filename)
 
     res.json(obj);
     
