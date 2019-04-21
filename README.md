@@ -5,6 +5,8 @@
 
 Api for the iOS/Android apps.
 
+Fully translated to EN and ES.
+
 ## Deploy
 
 ### Install dependencies
@@ -28,6 +30,10 @@ To start a single instance:
 To start in development mode:
 
     npm run dev (including nodemon & debug log)
+  
+To start microservice to create thumbnail:
+
+    npm run startThumbnailCreator
 
 ## Test
 
@@ -37,13 +43,14 @@ To start in development mode:
 
     npm run hints
 
-## API v1 info
-
+## API v1 info - Advertisemnts
 
 ### Base Path
 
 The API can be used with the path:
-[API V1](/apiv1/anuncios)
+[/apiv1/anuncios](/apiv1/anuncios)
+But login is required, is possible to login with api:
+[/apiv1/login](/apiv1/login)
 
 ### Error example
 
@@ -55,20 +62,43 @@ The API can be used with the path:
       }
     }
 
+### POST /login
+
+**Input Query**
+
+    {
+      email: user@example.com,
+      password: 1234
+    }
+
+**Result**
+
+    {
+      "sucess": true,
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2EzZGJjZWY5YzgxZDFmYzRlNTJjOWIiLCJpYXQiOjE1NTU3NDA3OTcsImV4cCI6MTU1NTkxMzU5N30.r-U2oJ1_lsYE5uUOdlJX8-XHeWfdotLJ9J1L2ECA98E"
+  }
+
+
 ### GET /anuncios
+
+**Requirements**
+A token must be sent along the query to autenticate.
 
 **Input Query**:
 
-start: {int} skip records
-limit: {int} limit to records
-sort: {string} field name to sort by
-includeTotal: {bool} whether to include the count of total records without filters
-tag: {string} tag name to filter
-venta: {bool} filter by venta or not
-precio: {range} filter by price range, examples 10-90, -90, 10-
+start: {int} skip records<br>
+limit: {int} limit to records<br>
+sort: {string} field name to sort by<br>
+includeTotal: {bool} whether to include the count of total records without filters<br>
+tag: {string} tag name to filter<br>
+venta: {bool} filter by venta or not<br>
+precio: {range} filter by price range, examples 10-90, -90, 10-<br>
 nombre: {string} filter names beginning with the string
 
-Input query example: ?start=0&limit=2&sort=precio&includeTotal=true&tag=mobile&venta=true&precio=-90&nombre=bi
+Input query example: 
+```
+?start=0&limit=2&sort=precio&includeTotal=true&tag=mobile&venta=true&precio=-90&nombre=bi
+```
 
 **Result:** 
 

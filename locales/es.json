@@ -3,5 +3,19 @@
 	"not_found": "No encontrado",
 	"not_valid": "No válido",
 	"generic": "Hubo un error: {{err}}",
-	"Advertisement list": "Lista de anuncios"
+	"Advertisement list": "Lista de anuncios",
+	"Listing": "Listando",
+	"of": "de",
+	"Name": "Nombre",
+	"Sell": "Venta",
+	"price": "Precio",
+	"Picture": "Foto",
+	"Tags": "Tags",
+	"Examples": "Ejemplos",
+	"pag": "paginado",
+	"Ordered by price asc.": "Ordenado por precio ascendente",
+	"ordered by price desc.": "Ordenado por precio descendente",
+	"With tag mobile": "Con tag mobile",
+	"Back to home": "Volver a Home",
+	"All (1000 max)": "Todos (1000 max)"
 }
