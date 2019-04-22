@@ -9,7 +9,8 @@
     "startmongoshell": "C:/\"Program Files\"/MongoDB/Server/3.6/bin/mongo.exe",
     "hints": "jshint . && ./node_modules/.bin/jscs . || true",
     "installDB": "node install_db.js",
-    "startThumbnailCreator": "node thumbnailCreator.js"
+    "startThumbnailCreator": "node thumbnailCreator.js",
+    "teste2e": "./node_modules/.bin/mocha **/*.e2e.js"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -22,13 +23,16 @@
     "ejs": "~2.3.3",
     "express": "^4.16.4",
     "hash.js": "^1.1.7",
+    "jest": "^24.7.1",
     "jimp": "^0.6.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.1.4",
     "mongoose": "^5.4.20",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "pm2": "^3.5.0",
     "serve-favicon": "^2.5.0",
+    "supertest": "^4.0.2",
     "validator": "^4.0.6"
   },
   "devDependencies": {

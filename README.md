@@ -37,7 +37,8 @@ To start microservice to create thumbnail:
 
 ## Test
 
-    npm test (pending to create, the client specified not to do now)
+    npm run teste2e 
+To run end to end test.
 
 ## JSHint & JSCS
 
