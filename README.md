@@ -9,9 +9,9 @@ Fully translated to EN and ES.
 
 ## Production
 
-The app is running in www.nodepop.sodges.es
+The app is running in http://nodepop.sodges.es
 
-www.nodepop.sodges.es/anuncios contains the ads, images are served from nginx, not node, see x-Owner tag
+http://nodepop.sodges.es/anuncios contains the ads, images are served from nginx, not node, see x-Owner tag
 
 Also my cv is in http://3.14.103.41/ css, js, png, jpg are served from nginx as well.
 
